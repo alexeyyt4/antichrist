@@ -166,6 +166,48 @@
         padding: 0.5em;
       }
     }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.7);
+      }
+      70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 15px rgba(33, 150, 243, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+      }
+    }
+
+    #music-btn {
+      position: fixed;
+      bottom: 20px; /* Назад в угол */
+      right: 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      font-size: 24px;
+      line-height: 56px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      z-index: 9999;
+      animation: pulse 2s infinite;
+      transition: background-color 0.3s, transform 0.2s;
+      padding: 0;
+    }
+
+    #music-btn:hover {
+      background-color: #1976d2;
+      transform: scale(1.15);
+    }
+
   </style>
 </head>
 <body>
@@ -177,6 +219,29 @@
     <div class="header-subtitle">АРХИВ ОТЧЁТОВ</div>
   </div>
 </div>
+
+<button id="music-btn" title="Включить музыку">🎵</button>
+
+<script>
+  const btn = document.getElementById('music-btn');
+  let audioStarted = false;
+  let bgMusic;
+
+  btn.addEventListener('click', () => {
+    if (!audioStarted) {
+      bgMusic = new Audio('music.mp3');
+      bgMusic.loop = true;
+      bgMusic.play();
+      audioStarted = true;
+      btn.textContent = '⏸';
+    } else {
+      bgMusic.pause();
+      audioStarted = false;
+      btn.textContent = '🎵';
+    }
+  });
+</script>
+
 
 <div class="fade-block"></div>
 
@@ -251,5 +316,6 @@
 </div>
 
 </body>
+
 </html>
 
